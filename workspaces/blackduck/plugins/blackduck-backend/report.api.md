@@ -4,8 +4,7 @@
 
 ```ts
 import { BackendFeature } from '@backstage/backend-plugin-api';
-import { BD_REST_API_RESPONSE } from '@backstage-community/plugin-blackduck-common';
-import { BD_VERSIONS_API_RESPONSE } from '@backstage-community/plugin-blackduck-common';
+import { BlackDuckConfig } from '@backstage-community/plugin-blackduck-node';
 import { Config } from '@backstage/config';
 import { DiscoveryService } from '@backstage/backend-plugin-api';
 import express from 'express';
@@ -14,60 +13,8 @@ import { LoggerService } from '@backstage/backend-plugin-api';
 import { PermissionsService } from '@backstage/backend-plugin-api';
 
 // @public
-export class BlackDuckConfig {
-  constructor(hosts: BlackDuckHostConfig[], defaultHost: string);
-  // (undocumented)
-  static fromConfig(config: Config): BlackDuckConfig;
-  // (undocumented)
-  getHostConfigByName(name: string): BlackDuckHostConfig;
-}
-
-// @public (undocumented)
-export interface BlackDuckHostConfig {
-  // (undocumented)
-  host: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  token: string;
-}
-
-// @public
 const blackduckPlugin: BackendFeature;
 export default blackduckPlugin;
-
-// @public (undocumented)
-export class BlackDuckRestApi {
-  constructor(logger: LoggerService, host: string, token: string);
-  // (undocumented)
-  auth(): Promise<any>;
-  // (undocumented)
-  createProject(
-    projectName: string,
-    projectVersion?: string,
-    phase?: string,
-    distribution?: string,
-  ): Promise<any>;
-  // (undocumented)
-  getProjects(name: string): Promise<BD_REST_API_RESPONSE>;
-  // (undocumented)
-  getProjectVersionDetails(
-    projectName: string,
-    projectVersion: string,
-  ): Promise<any>;
-  // (undocumented)
-  getRiskProfile(projectName: string, projectVersion: string): Promise<any>;
-  // (undocumented)
-  getVersions(
-    projectUrl: string,
-    versionName: string,
-  ): Promise<BD_VERSIONS_API_RESPONSE>;
-  // (undocumented)
-  getVulnerableComponents(
-    projectName: string,
-    projectVersion: string,
-  ): Promise<any>;
-}
 
 // @public (undocumented)
 export function createRouter(options: RouterOptions): Promise<express.Router>;
